@@ -10,7 +10,7 @@ class Patient(BaseModel):
     allergies: List[str]
     contact_details: Dict[str , str]
 
-    @field_validator('email')
+    @field_validator('email')  # this is a decorator which benefits by allowing multiple fields to be validated instead of manually doing it using Field
     @classmethod
     def validate_email(cls, value):
         valid_domains = ['mit.com', 'rwth-aachen.de', 'tu-berlin.de']
@@ -35,3 +35,6 @@ patient1 = Patient(**patient_info)
 
 
 update_patient_data(patient1)
+
+
+## Field validator runs in two modes "before" and "after". The first is used after the internal type coercion of Pydantic and the opposite for the latter. Default value is "after".
